@@ -1,0 +1,101 @@
+ run_analysis.R - contains scripts related to data preparation done using given  instructions in "Getting and Cleanning Data" course project.
+
+
+
+dataset - downloaded dataset is  extracted under a folder called UCI HAR Dataset
+
+
+
+variables
+--------
+
+
+
+features <- features.txt ( 561 rows, 2 columns ) 
+List of all features.
+
+
+activities <- activity_labels.txt ( 6 rows, 2 columns ) 
+List of activities considered
+
+
+
+Test Data
+
+--------
+
+subject_test <- test/subject_test.txt ( 2947 rows, 1 column ) : contains test data of subjects
+
+x_test <- test/X_test.txt ( 2947 rows, 561 columns ) : contrains test data of features
+
+y_test <- test/y_test.txt ( 2947 rows, 1 columns ) : contains test data of activities
+
+
+
+Train Data
+
+---------
+
+subject_train <- train/subject_train.txt ( 7352 rows, 1 column ) : contains train data of subjects
+
+x_train <- train/x_train.txt ( 7352 rows, 561 columns ) : contrains train data of features
+
+y_train <- train/y_train.txt ( 7352 rows, 1 columns ) : contains train data of activities
+
+1. 
+
+Merges the training and the test sets to create one data set.
+-------------------------------------------------------------------
+
+
+x_merge <- (10299 rows, 561 columns) : created by merging x_test & x_train using rbind() function 
+
+y_merge <- (10299 rows, 1 columns) : created by merging y_test & y_train using rbind() function 
+
+subject_merge <- (10299 rows, 1 columns) : created by merging subject_test & subject_train using rbind() function 
+
+
+
+dataset <- (10299 rows, 563 column)  : created by merging x_merge, y_merge and subject_merge using cbind() function
+
+
+
+2.Extracts only the measurements on the mean and standard deviation for each measurement.
+-----------------------------------------------------------------------------------------
+
+
+mean_std <- (10299 rows, 88 columns) : created by subsetting dataset, selecting only  subject, code and the measurements on the mean and standard deviation 
+
+
+
+3. Uses descriptive activity names to name the activities in the data set
+---------------------------------------------------------------------------
+All numbers in code column of the mean_std dataset replaced with corresponding activity taken from second column of the  activities variable
+
+
+
+4. Appropriately labels the data set with descriptive variable names
+-------------------------------------------------------------------
+
+all column names with following variables are renamed as below
+
+
+
+starts with t - Time
+
+starts with f - Frequency
+
+Acc - Accelerometer
+
+Gyro - Gyroscope
+
+Mag - Magnitude
+
+
+
+5.From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject
+----------------------------------------------------------------------------------------------------------------------
+
+tidy_data <- (180 rows, 88 columns) : created by sumarizing  dataset taking the means of each variable for each activity and each subject, after groupped by subject and activity.
+
+Finally tidy_data is exported tp tidy_data2.txt file.
